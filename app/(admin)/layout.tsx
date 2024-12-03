@@ -1,4 +1,5 @@
 import Header from '@/components/Header';
+import Sidebar from '@/components/Sidebar';
 
 const AdminLayout = ({
   children,
@@ -6,11 +7,13 @@ const AdminLayout = ({
   children: React.ReactNode;
 }>) => {
   return (
-    <div>
+    <div className="flex flex-col flex-1">
       <Header />
-      <div>
-        {/* Sidebar */}
-        <div>{children}</div>
+      <div className="flex flex-col flex-1 lg:flex-row bg-gray-100">
+        <Sidebar />
+        <div className="flex-1 flex justify-center lg:justify-start items-start mx-auto max-w-5xl w-full">
+          {children}
+        </div>
       </div>
     </div>
   );
