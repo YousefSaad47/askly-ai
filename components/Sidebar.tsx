@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { Button } from '@nextui-org/button';
 import { BotMessageSquare, PencilLine, SearchIcon } from 'lucide-react';
 
 const Sidebar = () => {
@@ -6,39 +7,36 @@ const Sidebar = () => {
     <div className="bg-white text-white p-5">
       <ul className="gap-5 flex lg:flex-col">
         <li className="flex-1">
-          <Link
-            href="/create-chatbot"
-            className="hover:opacity-50 flex flex-col text-center lg:text-left lg:flex-row items-center gap-2 p-5 rounded-md bg-[#2991EE]"
-          >
-            <BotMessageSquare className="w-6 h-6 lg:w-8 lg:h-8" />
-            <div className="hidden md:inline">
-              <p className="text-xl">Create</p>
-              <p className="text-sm font-extralight">New Chatbot</p>
-            </div>
+          <Link href="/create-chatbot">
+            <Button color="primary" className="py-14 px-6 w-full" radius="sm">
+              <BotMessageSquare className="w-6 h-6 lg:w-8 lg:h-8" />
+              <div className="hidden md:inline">
+                <p className="text-xl">Create</p>
+                <p className="text-sm font-extralight">New Chatbot</p>
+              </div>
+            </Button>
           </Link>
         </li>
         <li className="flex-1">
-          <Link
-            href="/view-chatbots"
-            className="hover:opacity-50 flex flex-col text-center lg:text-left lg:flex-row items-center gap-2 p-5 rounded-md bg-[#2991EE]"
-          >
-            <PencilLine className="w-6 h-6 lg:w-8 lg:h-8" />
-            <div className="hidden md:inline">
-              <p className="text-xl">Edit</p>
-              <p className="text-sm font-extralight">New Chatbot</p>
-            </div>
+          <Link href="/view-chatbots">
+            <Button color="primary" className="py-14 px-6 w-full" radius="sm">
+              <PencilLine className="w-6 h-6 lg:w-8 lg:h-8" />
+              <div className="hidden md:inline">
+                <p className="text-xl">Edit</p>
+                <p className="text-sm font-extralight">New Chatbot</p>
+              </div>
+            </Button>
           </Link>
         </li>
         <li className="flex-1">
-          <Link
-            href="review-sessions"
-            className="hover:opacity-50 flex flex-col text-center lg:text-left lg:flex-row items-center gap-2 p-5 rounded-md bg-[#2991EE]"
-          >
-            <SearchIcon className="w-6 h-6 lg:w-8 lg:h-8" />
-            <div className="hidden md:inline">
-              <p className="text-xl">View</p>
-              <p className="text-sm font-extralight">Sessions</p>
-            </div>
+          <Link href="review-sessions">
+            <Button color="primary" className="py-14 px-6 w-full" radius="sm">
+              <SearchIcon className="w-6 h-6 lg:w-8 lg:h-8" />
+              <div className="hidden md:inline">
+                <p className="text-xl">View</p>
+                <p className="text-sm font-extralight">Sessions</p>
+              </div>
+            </Button>
           </Link>
         </li>
       </ul>

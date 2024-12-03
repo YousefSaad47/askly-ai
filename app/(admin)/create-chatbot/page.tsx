@@ -1,6 +1,6 @@
 import Avatar from '@/components/Avatar';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { Button } from '@nextui-org/button';
+import { Input } from '@nextui-org/input';
 
 const CeateChatbot = () => {
   return (
@@ -12,14 +12,11 @@ const CeateChatbot = () => {
           Create a new chatbot to assist you in your conversations
         </h2>
       </div>
-      <form className="flex flex-col md:flex-row gap-2 mt-5">
-        <Input
-          type="text"
-          placeholder="Chatbot Name..."
-          className="max-w-lg"
-          required
-        />
-        <Button>Create Chatbot</Button>
+      <form className="flex flex-col md:flex-row items-center gap-3 mt-5">
+        <Input type="text" label="Chatbot Name" size="md" required />
+        <Button className="px-8" radius="sm">
+          Create Chatbot
+        </Button>
       </form>
     </div>
   );
