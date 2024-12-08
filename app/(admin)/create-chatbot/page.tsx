@@ -13,8 +13,15 @@ const CeateChatbot = () => {
         </h2>
       </div>
       <form className="flex flex-col md:flex-row items-center gap-3 mt-5">
-        <Input type="text" label="Chatbot Name" size="md" required />
-        <Button className="px-8" radius="sm">
+        <Input
+          type="text"
+          label="Chatbot Name"
+          size="sm"
+          required
+          minLength={3}
+          errorMessage={'Name must be at least 3 characters'}
+        />
+        <Button type="submit" className="px-8" radius="sm">
           Create Chatbot
         </Button>
       </form>
