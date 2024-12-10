@@ -8,6 +8,7 @@ import { useUser } from '@clerk/nextjs';
 import { Button } from '@nextui-org/button';
 import { Input } from '@nextui-org/input';
 import { useRouter } from 'next/navigation';
+import { Alert } from '@nextui-org/alert';
 
 const CeateChatbot = () => {
   const { user } = useUser();
@@ -25,7 +26,17 @@ const CeateChatbot = () => {
     }
   );
 
-  if (!user) return null;
+  if (!user)
+    return (
+      <div className="flex items-center justify-center mt-10">
+        <Alert
+          title="Unauthorized"
+          description={'Please Sign In to Create a Chatbot'}
+          color={'danger'}
+          variant={'faded'}
+        />
+      </div>
+    );
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
