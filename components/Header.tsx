@@ -5,7 +5,7 @@ import { Button } from '@nextui-org/button';
 
 const Header = () => {
   return (
-    <header className="bg-white shadow-sm text-gray-800 flex justify-between items-center p-5">
+    <header className="bg-white shadow-sm text-gray-800 flex justify-between items-center p-5 z-10">
       <Link href="/" className="flex gap-4 items-center">
         <Image src="/logo.png" alt="logo" width={60} height={60} />
         <div className="space-y-1">

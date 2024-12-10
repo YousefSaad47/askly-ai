@@ -5,11 +5,11 @@ import ApolloProviderWrapper from './ApolloProvider';
 const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
-      <ApolloProviderWrapper>
-        <ClerkProvider>
+      <ClerkProvider>
+        <ApolloProviderWrapper>
           <NextUIProvider>{children}</NextUIProvider>
-        </ClerkProvider>
-      </ApolloProviderWrapper>
+        </ApolloProviderWrapper>
+      </ClerkProvider>
     </>
   );
 };
