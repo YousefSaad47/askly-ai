@@ -8,10 +8,7 @@ const Header = () => {
     <header className="bg-white shadow-sm text-gray-800 flex justify-between items-center p-5 z-10">
       <Link href="/" className="flex gap-4 items-center">
         <Image src="/logo.png" alt="logo" width={60} height={60} />
-        <div className="space-y-1">
-          <h1 className="text-lg lg:text-xl">Askly</h1>
-          <h2 className="text-xs lg:text-sm">Your Customisable AI Agent</h2>
-        </div>
+        <h1 className="text-xs lg:text-sm">Your Customisable AI Agent</h1>
       </Link>
 
       <div>
