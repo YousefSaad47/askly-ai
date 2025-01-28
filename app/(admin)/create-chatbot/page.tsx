@@ -5,13 +5,14 @@ import Avatar from '@/components/Avatar';
 import { CREATE_CHATBOT } from '@/graphql/mutations/mutations';
 import { useMutation } from '@apollo/client';
 import { useUser } from '@clerk/nextjs';
-import { Button } from '@nextui-org/button';
-import { Input } from '@nextui-org/input';
+import { Button } from '@heroui/button';
+import { Input } from '@heroui/input';
 import { useRouter } from 'next/navigation';
-import { Alert } from '@nextui-org/alert';
+import { Alert } from '@heroui/alert';
+import { Spinner } from '@heroui/spinner';
 
 const CeateChatbot = () => {
-  const { user } = useUser();
+  const { user, isLoaded } = useUser();
   const [name, setName] = useState('');
   const router = useRouter();
 
@@ -26,9 +27,15 @@ const CeateChatbot = () => {
     }
   );
 
+  if (!isLoaded) {
+    return (
+      <Spinner className="relative md:top-1/2 md:left-1/2 md:mt-0 mt-10" />
+    );
+  }
+
   if (!user)
     return (
-      <div className="flex items-center justify-center mt-10">
+      <div className="relative md:top-1/4 md:left-1/2 md:mt-0 mt-10">
         <Alert
           title="Unauthorized"
           description={'Please Sign In to Create a Chatbot'}
@@ -52,7 +59,7 @@ const CeateChatbot = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center md:flex-row md:space-x-10 bg-white p-10 rounded m-10">
+    <div className="flex flex-col items-center justify-center md:flex-row md:space-x-10 bg-white p-10 rounded-md border border-default-200 dark:border-default-100 m-10 dark:bg-[#17171a]">
       <Avatar seed="create-chatboot" />
       <div>
         <h1 className="text-xl lg-text-3xl font-semibold">Create</h1>
@@ -68,13 +75,20 @@ const CeateChatbot = () => {
           type="text"
           label="Chatbot Name"
           size="sm"
+          variant="bordered"
           required
           minLength={3}
           errorMessage={'Name must be at least 3 characters'}
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
-        <Button type="submit" className="px-8" radius="sm" isLoading={loading}>
+        <Button
+          type="submit"
+          className="px-8"
+          radius="sm"
+          color="primary"
+          isLoading={loading}
+        >
           {loading ? 'Creating' : 'Create Chatbot'}
         </Button>
       </form>
