@@ -3,6 +3,7 @@ import localFont from 'next/font/local';
 import './globals.css';
 
 import Providers from '@/components/providers';
+import { GradientBackground } from '@/components/BackGroundGradient';
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -32,6 +33,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Providers>
+          <GradientBackground />
           {children}
           {/* Toaster */}
         </Providers>
