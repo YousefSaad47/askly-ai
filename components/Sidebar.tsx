@@ -1,46 +1,74 @@
-import Link from 'next/link';
-import { Button } from '@nextui-org/button';
+'use client';
+
+import React, { useEffect, useState } from 'react';
 import { BotMessageSquare, PencilLine, SearchIcon } from 'lucide-react';
+import { Tabs, Tab } from '@heroui/tabs';
+import Link from 'next/link';
+import { useTheme } from 'next-themes';
+
+const sidebarItems = [
+  {
+    href: '/create-chatbot',
+    icon: <BotMessageSquare className="size-5 md:size-7" />,
+    title: 'Create new chatbot',
+  },
+  {
+    href: '/view-chatbots',
+    icon: <PencilLine className="size-5 float-start md:size-7" />,
+    title: 'Edit chatbot',
+  },
+  {
+    href: '/review-sessions',
+    icon: <SearchIcon className="size-5 md:size-7" />,
+    title: 'View sessions',
+  },
+];
 
 const Sidebar = () => {
+  const [isVertical, setIsVertical] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const { theme } = useTheme();
+
+  useEffect(() => {
+    setIsVertical(window.innerWidth >= 768);
+    setMounted(true);
+    const handleResize = () => {
+      setIsVertical(window.innerWidth >= 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  if (!mounted) return null;
+
   return (
-    <div className="bg-white text-white p-5">
-      <ul className="gap-5 flex lg:flex-col">
-        <li className="flex-1">
-          <Link href="/create-chatbot">
-            <Button color="primary" className="py-14 px-6 w-full" radius="sm">
-              <BotMessageSquare className="w-6 h-6 lg:w-8 lg:h-8" />
-              <div className="hidden md:inline">
-                <p className="text-xl">Create</p>
-                <p className="text-sm font-extralight">New Chatbot</p>
-              </div>
-            </Button>
-          </Link>
-        </li>
-        <li className="flex-1">
-          <Link href="/view-chatbots">
-            <Button color="primary" className="py-14 px-6 w-full" radius="sm">
-              <PencilLine className="w-6 h-6 lg:w-8 lg:h-8" />
-              <div className="hidden md:inline">
-                <p className="text-xl">Edit</p>
-                <p className="text-sm font-extralight">New Chatbot</p>
-              </div>
-            </Button>
-          </Link>
-        </li>
-        <li className="flex-1">
-          <Link href="review-sessions">
-            <Button color="primary" className="py-14 px-6 w-full" radius="sm">
-              <SearchIcon className="w-6 h-6 lg:w-8 lg:h-8" />
-              <div className="hidden md:inline">
-                <p className="text-xl">View</p>
-                <p className="text-sm font-extralight">Sessions</p>
-              </div>
-            </Button>
-          </Link>
-        </li>
-      </ul>
-    </div>
+    <aside className="bg-white dark:bg-black text-white p-5 relative border-r border-r-default-200 dark:border-r-default-100">
+      <Tabs
+        aria-label="Sidebar"
+        variant="bordered"
+        size="lg"
+        color={theme === 'dark' ? 'secondary' : 'default'}
+        fullWidth
+        isVertical={isVertical}
+      >
+        {sidebarItems.map((item, index) => (
+          <Tab
+            key={`${item.href}-${index}`}
+            title={
+              <Link
+                href={item.href}
+                className="flex items-center gap-1 text-black dark:text-white"
+              >
+                {item.icon}
+                <p className="text-xs md:text-sm">{item.title}</p>
+              </Link>
+            }
+          />
+        ))}
+      </Tabs>
+    </aside>
   );
 };
+
 export default Sidebar;
