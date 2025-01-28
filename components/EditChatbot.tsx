@@ -2,15 +2,16 @@
 
 import { BASE_URL } from '@/graphql/apolloClient';
 import { useEffect, useState } from 'react';
-import { Snippet } from '@nextui-org/snippet';
+import { Snippet } from '@heroui/snippet';
 import { toast } from 'sonner';
-import { Button } from '@nextui-org/button';
+import { Button } from '@heroui/button';
 import { X } from 'lucide-react';
 import Avatar from '@/components/Avatar';
 import { useMutation, useQuery } from '@apollo/client';
 import { GET_CHATBOT_BY_ID } from '@/graphql/queries/queries';
 import { GetChatbotByIdResponse, GetChatbotByIdVariables } from '@/types';
-import { Input } from '@nextui-org/input';
+import { Input } from '@heroui/input';
+import { Divider } from '@heroui/divider';
 import Characteristic from '@/components/Characteristic';
 import {
   ADD_CHARACTERISTIC,
@@ -18,7 +19,8 @@ import {
   UPDATE_CHATBOT,
 } from '@/graphql/mutations/mutations';
 import { redirect } from 'next/navigation';
-import { Spinner } from '@nextui-org/spinner';
+import { Spinner } from '@heroui/spinner';
+import { ModalComponent } from './Modal';
 
 const EditChatbot = ({ id }: { id: string }) => {
   const [url, setUrl] = useState<string>('');
@@ -105,12 +107,6 @@ const EditChatbot = ({ id }: { id: string }) => {
   };
 
   const handleDelete = async () => {
-    const isConfirmed = window.confirm(
-      'Are you sure you want to delete this chatbot? This action cannot be undone.'
-    );
-
-    if (!isConfirmed) return;
-
     try {
       const promise = deleteChatbot();
 
@@ -127,9 +123,7 @@ const EditChatbot = ({ id }: { id: string }) => {
 
   if (loading) {
     return (
-      <div className="relative md:top-1/2 md:left-1/2 md:mt-0 mt-10 h-screen">
-        <Spinner />
-      </div>
+      <Spinner className="relative md:top-1/2 md:left-1/2 md:mt-0 mt-10" />
     );
   }
 
@@ -139,16 +133,16 @@ const EditChatbot = ({ id }: { id: string }) => {
 
   return (
     <div className="px-0 md:p-10">
-      <div className="md:sticky md:top-0 z-50 sm:max-w-sm ml-auto space-y-2 md:border p-5 rounded-b-lg md:rounded-lg bg-[#2991EE]">
-        <h2 className="text-white text-sm font-bold">Link to Chat</h2>
-        <p className="text-sm italic text-white">
+      <div className="md:sticky md:top-0 z-50 sm:max-w-sm ml-auto space-y-2 border-t md:border p-5 rounded-b-lg md:rounded-lg  dark:bg-black border-default-200 dark:border-default-100">
+        <strong>Link to Chat</strong>
+        <p className="text-sm italic text-default-600 dark:text-default-500">
           Share this link with your users to start conversations with your
           chatbot
         </p>
         <Snippet
-          variant="solid"
+          variant="flat"
+          color="primary"
           tooltipProps={{
-            color: 'foreground',
             placement: 'top-start',
             className: 'bg-black px-2',
           }}
@@ -160,17 +154,10 @@ const EditChatbot = ({ id }: { id: string }) => {
         </Snippet>
       </div>
 
-      <section className="relative mt-5 bg-white p-8 md:p-10 rounded-lg">
-        <Button
-          isIconOnly
-          color="danger"
-          size="sm"
-          radius="sm"
-          className="absolute top-2 right-2"
-          onPress={() => handleDelete()}
-        >
-          {<X className="size-5" />}
-        </Button>
+      <Divider className="my-4 w-11/12 mx-auto" />
+
+      <section className="relative mt-5 bg-white p-8 md:p-10 rounded-lg dark:bg-[#17171a] border border-default-200 dark:border-default-100">
+        <ModalComponent handleDelete={handleDelete} />
 
         <div className="flex space-x-4">
           <Avatar seed={chatbotName} />
@@ -184,7 +171,9 @@ const EditChatbot = ({ id }: { id: string }) => {
               onChange={(e) => setChatbotName(e.target.value)}
               variant="underlined"
               required
-              errorMessage="Chatbot name is required"
+              errorMessage="Name must be at least 3 characters"
+              minLength={3}
+              maxLength={50}
             />
             <Button
               type="submit"
@@ -192,18 +181,18 @@ const EditChatbot = ({ id }: { id: string }) => {
               color="primary"
               isLoading={updateChatbotLoading}
             >
-              {updateChatbotLoading ? 'Updating...' : 'Update'}
+              {updateChatbotLoading ? 'Updating' : 'Update'}
             </Button>
           </form>
         </div>
 
         <h2 className="text-xl font-bold mt-10">Here is what your AI knows:</h2>
-        <p>
+        <p className="text-sm italic mt-2 text-default-600 dark:text-default-500">
           Your chatbot is equipped with the following information to assist you
           in your conversation with your users
         </p>
 
-        <div className="bg-gray-200 p-5 rounded-md mt-5">
+        <div className="p-5 rounded-md mt-5 border border-default-200 dark:border-default-100">
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -227,7 +216,7 @@ const EditChatbot = ({ id }: { id: string }) => {
               color="primary"
               isLoading={addCharacteristicLoading}
             >
-              {addCharacteristicLoading ? 'Adding...' : 'Add'}
+              {addCharacteristicLoading ? 'Adding' : 'Add'}
             </Button>
           </form>
 
