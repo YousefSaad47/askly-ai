@@ -1,17 +1,20 @@
-import { ClerkProvider } from '@clerk/nextjs';
-import { NextUIProvider } from '@nextui-org/system';
+import { HeroUIProvider } from '@heroui/system';
 import ApolloProviderWrapper from './ApolloProvider';
 import { Toaster } from '@/components/ui/sonner';
+import { ThemeProvider as NextThemesProvider } from 'next-themes';
+import { ClerkProvider } from '@clerk/nextjs';
 
 const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
       <ClerkProvider>
         <ApolloProviderWrapper>
-          <NextUIProvider>
-            {children}
-            <Toaster position="bottom-center" />
-          </NextUIProvider>
+          <HeroUIProvider>
+            <NextThemesProvider attribute="class" defaultTheme="dark">
+              {children}
+              <Toaster position="bottom-center" />
+            </NextThemesProvider>
+          </HeroUIProvider>
         </ApolloProviderWrapper>
       </ClerkProvider>
     </>
