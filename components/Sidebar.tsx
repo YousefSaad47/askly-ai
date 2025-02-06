@@ -40,7 +40,14 @@ const Sidebar = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  if (!mounted) return null;
+  if (!mounted)
+    return (
+      <div className="flex flex-row md:flex-col gap-2 p-6">
+        <div className="w-48 h-10 rounded-xl bg-transparent border border-default" />
+        <div className="w-48 h-10 rounded-xl bg-transparent border border-default" />
+        <div className="w-48 h-10 rounded-xl bg-transparent border border-default" />
+      </div>
+    );
 
   return (
     <aside className="bg-white dark:bg-black text-white p-5 relative border-r border-r-default-200 dark:border-r-default-100">

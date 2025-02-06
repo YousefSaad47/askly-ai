@@ -1,0 +1,58 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model chatbots {
+  id                      String                    @id @default(cuid())
+  clerk_user_id           String
+  name                    String
+  created_at              DateTime                  @default(now())
+  chat_sessions           chat_sessions[]
+  chatbot_characteristics chatbot_characteristics[]
+}
+
+model chatbot_characteristics {
+  id         String   @id @default(cuid())
+  chatbot_id String
+  content    String
+  created_at DateTime @default(now())
+  chatbot    chatbots @relation(fields: [chatbot_id], references: [id], onDelete: Cascade)
+}
+
+model guests {
+  id            String          @id @default(cuid())
+  name          String?
+  email         String?
+  created_at    DateTime        @default(now())
+  chat_sessions chat_sessions[]
+}
+
+model chat_sessions {
+  id         String     @id @default(cuid())
+  chatbot_id String
+  guest_id   String?
+  created_at DateTime   @default(now())
+  chatbot    chatbots   @relation(fields: [chatbot_id], references: [id], onDelete: Cascade)
+  guest      guests?    @relation(fields: [guest_id], references: [id], onDelete: SetNull)
+  messages   messages[]
+}
+
+model messages {
+  id              String        @id @default(cuid())
+  chat_session_id String
+  content         String
+  created_at      DateTime      @default(now())
+  sender          String
+  chat_session    chat_sessions @relation(fields: [chat_session_id], references: [id], onDelete: Cascade)
+}

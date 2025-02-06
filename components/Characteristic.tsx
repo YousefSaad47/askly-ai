@@ -1,6 +1,6 @@
 'use client';
 
-import { REMOVE_CHARACTERISTIC } from '@/graphql/mutations/mutations';
+import { REMOVE_CHARACTERISTIC } from '@/graphql/mutations';
 import { ChatbotCharacteristic } from '@/types';
 import { useMutation } from '@apollo/client';
 import { Button } from '@heroui/button';
