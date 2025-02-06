@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Avatar from '@/components/Avatar';
-import { CREATE_CHATBOT } from '@/graphql/mutations/mutations';
+import { CREATE_CHATBOT } from '@/graphql/mutations';
 import { useMutation } from '@apollo/client';
 import { useUser } from '@clerk/nextjs';
 import { Button } from '@heroui/button';
@@ -22,7 +22,6 @@ const CeateChatbot = () => {
       variables: {
         clerk_user_id: user?.id,
         name,
-        created_at: new Date().toISOString(),
       },
     }
   );
@@ -52,7 +51,7 @@ const CeateChatbot = () => {
       const result = await createChatbot();
       setName('');
 
-      router.push(`/edit-chatbot/${result.data.insertChatbots.id}`);
+      router.push(`/edit-chatbot/${result.data.createChatbot.id}`);
     } catch (err) {
       console.error(err);
     }

@@ -1,4 +1,5 @@
 import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server';
+import { NextResponse } from 'next/server';
 
 const protectedRoutes = [
   '/create-chatbot',
@@ -11,6 +12,16 @@ const protectedRoutes = [
 const isProtectedRoute = createRouteMatcher(protectedRoutes);
 
 export default clerkMiddleware(async (auth, req) => {
+  if (req.nextUrl.pathname === '/api/graphql' && !(await auth()).userId) {
+    return NextResponse.json(
+      {
+        error: 'Unauthorized',
+        message:
+          'You need to be logged in to access this resource. Please log in and try again.',
+      },
+      { status: 401 }
+    );
+  }
   if (isProtectedRoute(req)) {
     await auth.protect();
   }

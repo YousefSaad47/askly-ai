@@ -1,14 +1,13 @@
 'use client';
 
-import { BASE_URL } from '@/graphql/apolloClient';
+import { BASE_URL } from '@/constants';
 import { useEffect, useState } from 'react';
 import { Snippet } from '@heroui/snippet';
 import { toast } from 'sonner';
 import { Button } from '@heroui/button';
-import { X } from 'lucide-react';
 import Avatar from '@/components/Avatar';
 import { useMutation, useQuery } from '@apollo/client';
-import { GET_CHATBOT_BY_ID } from '@/graphql/queries/queries';
+import { GET_CHATBOT_BY_ID } from '@/graphql/queries';
 import { GetChatbotByIdResponse, GetChatbotByIdVariables } from '@/types';
 import { Input } from '@heroui/input';
 import { Divider } from '@heroui/divider';
@@ -17,15 +16,15 @@ import {
   ADD_CHARACTERISTIC,
   DELETE_CHATBOT,
   UPDATE_CHATBOT,
-} from '@/graphql/mutations/mutations';
+} from '@/graphql/mutations';
 import { redirect } from 'next/navigation';
 import { Spinner } from '@heroui/spinner';
 import { ModalComponent } from './Modal';
 
 const EditChatbot = ({ id }: { id: string }) => {
-  const [url, setUrl] = useState<string>('');
-  const [chatbotName, setChatbotName] = useState<string>('');
-  const [newCharacteristic, setNewCharacteristic] = useState<string>('');
+  const [url, setUrl] = useState('');
+  const [chatbotName, setChatbotName] = useState('');
+  const [newCharacteristic, setNewCharacteristic] = useState('');
 
   const { data, loading, error } = useQuery<
     GetChatbotByIdResponse,
@@ -47,12 +46,11 @@ const EditChatbot = ({ id }: { id: string }) => {
     }
   );
 
-  const [addCharacteristic, { loading: addCharacteristicLoading }] =
+  const [addChatbotCharacteristic, { loading: addCharacteristicLoading }] =
     useMutation(ADD_CHARACTERISTIC, {
       variables: {
         chatbotId: id,
         content: newCharacteristic,
-        created_at: new Date().toISOString(),
       },
       refetchQueries: ['GetChatbotById'],
     });
@@ -67,7 +65,7 @@ const EditChatbot = ({ id }: { id: string }) => {
 
   useEffect(() => {
     if (data) {
-      setChatbotName(data.chatbots.name);
+      setChatbotName(data.getChatbotById.name);
     }
   }, [data]);
 
@@ -78,7 +76,7 @@ const EditChatbot = ({ id }: { id: string }) => {
 
   const handleAddCharacteristic = async () => {
     try {
-      const promise = addCharacteristic();
+      const promise = addChatbotCharacteristic();
 
       toast.promise(promise, {
         loading: 'Adding characteristic...',
@@ -129,7 +127,7 @@ const EditChatbot = ({ id }: { id: string }) => {
 
   if (error) return <p>Error: {error.message}</p>;
 
-  if (!data?.chatbots) return redirect('/view-chatbots');
+  if (!data?.getChatbotById) return redirect('/view-chatbots');
 
   return (
     <div className="px-0 md:p-10">
@@ -221,12 +219,14 @@ const EditChatbot = ({ id }: { id: string }) => {
           </form>
 
           <ul className="flex flex-wrap-reverse gap-5">
-            {data?.chatbots?.chatbot_characteristics?.map((characteristic) => (
-              <Characteristic
-                key={characteristic.id}
-                characteristic={characteristic}
-              />
-            ))}
+            {data?.getChatbotById?.chatbot_characteristics?.map(
+              (characteristic) => (
+                <Characteristic
+                  key={characteristic.id}
+                  characteristic={characteristic}
+                />
+              )
+            )}
           </ul>
         </div>
       </section>
