@@ -76,7 +76,7 @@ export const getChatbotsByUser: ResolverFn<
   return await prisma.chatbots.findMany({
     where: { clerk_user_id },
     include: {
-      chat_sessions: { include: { messages: true } },
+      chat_sessions: { include: { messages: true, guest: true } },
       chatbot_characteristics: true,
     },
   });

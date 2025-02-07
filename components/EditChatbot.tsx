@@ -142,13 +142,20 @@ const EditChatbot = ({ id }: { id: string }) => {
           color="primary"
           tooltipProps={{
             placement: 'top-start',
-            className: 'bg-black px-2',
+            className: 'bg-[#17171a] p-2 rounded-full',
           }}
           onCopy={() => {
             toast.success('Copied to clipboard');
           }}
         >
-          {url}
+          <span
+            style={{
+              whiteSpace: 'normal',
+              overflowWrap: 'anywhere',
+            }}
+          >
+            {url}
+          </span>
         </Snippet>
       </div>
 
