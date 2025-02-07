@@ -1,17 +1,12 @@
 'use client';
 
 import { useUser } from '@clerk/nextjs';
-import {
-  Chatbot,
-  GetChatbotByUserResponse,
-  GetChatbotByUserVariables,
-} from '@/types';
+import { GetChatbotByUserResponse, GetChatbotByUserVariables } from '@/types';
 import Link from 'next/link';
 import Avatar from '@/components/Avatar';
 import { useQuery } from '@apollo/client';
 import { Button } from '@heroui/button';
 import { GET_CHATBOTS_BY_USER } from '@/graphql/queries';
-import { useEffect, useState } from 'react';
 import { Spinner } from '@heroui/spinner';
 import { Alert } from '@heroui/alert';
 
@@ -91,13 +86,13 @@ const ViewChatbotsPage = () => {
       <ul className="flex flex-col space-y-5 ">
         {sortedChatbotsByUser.map((chatbot) => (
           <Link key={chatbot.id} href={`/edit-chatbot/${chatbot.id}`}>
-            <li className="relative p-10 border rounded-md max-w-3xl bg-white">
+            <li className="relative p-10 border rounded-md max-w-3xl bg-white dark:bg-[#17171a] border-default-200 dark:border-default-100">
               <div className="flex justify-between items-center">
                 <div className="flex items-center space-x-4">
                   <Avatar seed={chatbot.name} />
                   <h2 className="text-xl font-bold">{chatbot.name}</h2>
                 </div>
-                <p className="absolute top-5 right-5 text-xs text-gray-400 dark:text-gray-500">
+                <p className="absolute top-5 right-5 text-xs text-default-600 dark:text-default-500">
                   Created At: {new Date(chatbot.created_at).toLocaleString()}
                 </p>
               </div>
@@ -113,13 +108,16 @@ const ViewChatbotsPage = () => {
                 )}
 
                 {chatbot.chatbot_characteristics.map((characteristic) => (
-                  <li className="list-disc break-words" key={characteristic.id}>
+                  <li
+                    className="ml-16 list-disc break-words"
+                    key={characteristic.id}
+                  >
                     {characteristic.content}
                   </li>
                 ))}
               </ul>
 
-              <h3 className="italic">No of Sessions:</h3>
+              <h3 className="italic mt-5">No of Sessions:</h3>
               <p>{chatbot.chat_sessions.length}</p>
             </li>
           </Link>

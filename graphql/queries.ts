@@ -40,11 +40,38 @@ export const GET_CHATBOTS_BY_USER = gql`
         id
         created_at
         guest_id
+        guest {
+          name
+          email
+        }
         messages {
           id
           content
           created_at
         }
+      }
+    }
+  }
+`;
+
+export const GET_CHAT_SESSION_BY_ID = gql`
+  query GetChatSessionById($id: ID!) {
+    getChatSessionById(id: $id) {
+      id
+      created_at
+      messages {
+        id
+        content
+        created_at
+        sender
+      }
+      chatbot {
+        id
+        name
+      }
+      guest {
+        name
+        email
       }
     }
   }

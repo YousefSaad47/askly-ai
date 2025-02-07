@@ -2,13 +2,15 @@ import type { Config } from 'tailwindcss';
 
 const { heroui } = require('@heroui/theme');
 
+import daisyui from 'daisyui';
+
 export default {
   darkMode: ['class'],
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
-    './node_modules/@heroui/theme/dist/components/(button|input|spinner|alert|snippet|navbar|link|modal|user|tabs|skeleton|card|breadcrumbs|checkbox|divider|dropdown|form).js',
+    './node_modules/@heroui/theme/dist/components/(button|input|spinner|alert|snippet|navbar|link|modal|user|tabs|skeleton|card|breadcrumbs|checkbox|divider|dropdown|form|accordion).js',
   ],
   theme: {
     extend: {
@@ -23,5 +25,8 @@ export default {
       },
     },
   },
-  plugins: [require('tailwindcss-animate'), heroui({})],
+  daisyui: {
+    base: false,
+  },
+  plugins: [require('tailwindcss-animate'), heroui({}), daisyui],
 } satisfies Config;
