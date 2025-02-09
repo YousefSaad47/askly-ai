@@ -1,60 +1,100 @@
-export interface Chatbot {
-  id: number;
+export type ConnectionResponse<Key extends string, T> = {
+  [K in Key]: {
+    __typename: string;
+    edges: Array<{
+      node: T;
+      cursor: string;
+    }>;
+    pageInfo: {
+      hasNextPage: boolean;
+      endCursor: string | null;
+    };
+  };
+};
+
+export type ChatbotCharacteristicConnection = ConnectionResponse<
+  'getChatbotCharacteristicsPaginated',
+  ChatbotCharacteristic
+>;
+
+export type ChatSessionConnection = ConnectionResponse<
+  'getChatSessionByChatbotIdPaginated',
+  ChatSession
+>;
+
+export type MessageConnection = ConnectionResponse<
+  'getMessagesByChatSessionIdPaginated',
+  Message
+>;
+
+export type Chatbot = {
+  id: string;
   clerk_user_id: string;
   name: string;
   created_at: string;
   chatbot_characteristics: ChatbotCharacteristic[];
   chat_sessions: ChatSession[];
-}
+};
 
-export interface ChatbotCharacteristic {
+export type ChatbotCharacteristic = {
   id: number;
   chatbot_id: number;
   content: string;
   created_at: string;
-}
+};
 
-export interface Guest {
+export type Guest = {
   id: number;
   name: string;
   email: string;
   created_at: string;
-}
+};
 
-export interface ChatSession {
+export type Message = {
+  id: string;
+  chat_session_id: string;
+  content: string;
+  created_at: string;
+  sender: 'ai' | 'user';
+};
+
+export type ChatSession = {
   id: number;
   chatbot_id: number;
   guest_id: number | null;
   created_at: string;
   messages: Message[];
   guest: Guest;
-}
+};
 
-export interface Message {
-  id: string;
-  chat_session_id: string;
-  content: string;
-  created_at: string;
-  sender: 'ai' | 'user';
-}
-
-export interface GetChatbotByIdResponse {
+export type GetChatbotByIdResponse = {
   getChatbotById: Chatbot;
-}
+};
 
-export interface GetChatbotByIdVariables {
+export type GetChatbotByIdVariables = {
   id: string;
-}
+};
 
-export interface GetChatbotByUserResponse {
+export type GetChatbotByUserResponse = {
   getChatbotsByUser: Chatbot[];
-}
+};
 
-export interface GetChatbotByUserVariables {
+export type GetChatbotByUserVariables = {
   clerk_user_id: string;
-}
+};
 
-export interface GetChatSessionByIdResponse {
+export type GetChatbotsByUserPaginatedResponse = ConnectionResponse<
+  'getChatbotsByUserPaginated',
+  Chatbot
+>;
+
+export type GetChatbotsByUserPaginatedVariables = {
+  clerk_user_id: string;
+  first: number;
+  after?: string;
+};
+
+export type GetChatSessionByIdResponse = {
   getChatSessionById: {
     id: string;
     created_at: string;
@@ -67,16 +107,16 @@ export interface GetChatSessionByIdResponse {
       email: string;
     };
   };
-}
+};
 
-export interface GetChatSessionByIdVariables {
+export type GetChatSessionByIdVariables = {
   id: string;
-}
+};
 
-export interface GetMessagesByChatSessionIdResponse {
+export type GetMessagesByChatSessionIdResponse = {
   getChatSessionById: ChatSession;
-}
+};
 
-export interface GetMessagesByChatSessionIdVariables {
+export type GetMessagesByChatSessionIdVariables = {
   id: string;
-}
+};

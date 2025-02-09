@@ -25,3 +25,13 @@ export const deleteChatSessionSchema = z.object({
   id: z.string(),
 });
 export type DeleteChatSessionInput = z.infer<typeof deleteChatSessionSchema>;
+
+export const getChatSessionByChatbotIdPaginatedSchema = z.object({
+  chatbot_id: z.string(),
+  first: z.number().min(1),
+  after: z.string().optional(),
+});
+
+export type GetChatSessionByChatbotIdPaginatedArgs = z.infer<
+  typeof getChatSessionByChatbotIdPaginatedSchema
+>;

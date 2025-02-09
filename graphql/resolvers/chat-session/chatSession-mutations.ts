@@ -3,11 +3,14 @@ import {
   createChatSessionSchema,
   updateChatSessionSchema,
   deleteChatSessionSchema,
+  CreateChatSessionInput,
+  UpdateChatSessionInput,
+  DeleteChatSessionInput,
 } from '@/graphql/validation-schemas/chat-session-schemas';
 
 export const createChatSession: ResolverFn<
   null,
-  { chatbot_id: string; guest_id: string },
+  CreateChatSessionInput,
   any
 > = async (_, args, { prisma }) => {
   const data = createChatSessionSchema.parse(args);
@@ -16,7 +19,7 @@ export const createChatSession: ResolverFn<
 
 export const updateChatSession: ResolverFn<
   null,
-  { id: string; chatbot_id?: string; guest_id?: string },
+  UpdateChatSessionInput,
   any
 > = async (_, args, { prisma }) => {
   const { id, chatbot_id, guest_id } = updateChatSessionSchema.parse(args);
@@ -26,11 +29,11 @@ export const updateChatSession: ResolverFn<
   });
 };
 
-export const deleteChatSession: ResolverFn<null, { id: string }, any> = async (
-  _,
-  args,
-  { prisma }
-) => {
+export const deleteChatSession: ResolverFn<
+  null,
+  DeleteChatSessionInput,
+  any
+> = async (_, args, { prisma }) => {
   const { id } = deleteChatSessionSchema.parse(args);
   return await prisma.chat_sessions.delete({ where: { id } });
 };

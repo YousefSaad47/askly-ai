@@ -7,8 +7,15 @@ import { toast } from 'sonner';
 import { Button } from '@heroui/button';
 import Avatar from '@/components/avatar';
 import { useMutation, useQuery } from '@apollo/client';
-import { GET_CHATBOT_BY_ID } from '@/graphql/queries';
-import { GetChatbotByIdResponse, GetChatbotByIdVariables } from '@/types';
+import {
+  GET_CHATBOT_BY_ID,
+  GET_CHATBOT_CHARACTERISTICS_PAGINATED,
+} from '@/graphql/queries';
+import {
+  ChatbotCharacteristicConnection,
+  GetChatbotByIdResponse,
+  GetChatbotByIdVariables,
+} from '@/types';
 import { Input } from '@heroui/input';
 import { Divider } from '@heroui/divider';
 import Characteristic from '@/components/characteristic';
@@ -20,6 +27,7 @@ import {
 import { redirect } from 'next/navigation';
 import { Spinner } from '@heroui/spinner';
 import { ModalComponent } from './modal';
+import { useInView } from 'react-intersection-observer';
 
 const EditChatbot = ({ id }: { id: string }) => {
   const [url, setUrl] = useState('');
@@ -29,36 +37,76 @@ const EditChatbot = ({ id }: { id: string }) => {
   const { data, loading, error } = useQuery<
     GetChatbotByIdResponse,
     GetChatbotByIdVariables
-  >(GET_CHATBOT_BY_ID, {
-    variables: {
-      id,
-    },
-  });
+  >(GET_CHATBOT_BY_ID, { variables: { id } });
+
+  const {
+    data: characteristicsData,
+    loading: characteristicsLoading,
+    fetchMore: fetchMoreCharacteristics,
+  } = useQuery<ChatbotCharacteristicConnection>(
+    GET_CHATBOT_CHARACTERISTICS_PAGINATED,
+    {
+      variables: { chatbot_id: id, first: 5 },
+      notifyOnNetworkStatusChange: true,
+    }
+  );
+
+  console.log(characteristicsData);
+
+  const { ref, inView } = useInView({ threshold: 1.0 });
+
+  useEffect(() => {
+    if (
+      inView &&
+      characteristicsData?.getChatbotCharacteristicsPaginated.pageInfo
+        .hasNextPage &&
+      !characteristicsLoading
+    ) {
+      fetchMoreCharacteristics({
+        variables: {
+          after:
+            characteristicsData.getChatbotCharacteristicsPaginated.pageInfo
+              .endCursor,
+        },
+        updateQuery: (prev, { fetchMoreResult }) => {
+          if (!fetchMoreResult) return prev;
+          return {
+            getChatbotCharacteristicsPaginated: {
+              __typename: prev.getChatbotCharacteristicsPaginated.__typename,
+              edges: [
+                ...prev.getChatbotCharacteristicsPaginated.edges,
+                ...fetchMoreResult.getChatbotCharacteristicsPaginated.edges,
+              ],
+              pageInfo:
+                fetchMoreResult.getChatbotCharacteristicsPaginated.pageInfo,
+            },
+          };
+        },
+      });
+    }
+  }, [
+    inView,
+    characteristicsData,
+    characteristicsLoading,
+    fetchMoreCharacteristics,
+  ]);
 
   const [updateChatbot, { loading: updateChatbotLoading }] = useMutation(
     UPDATE_CHATBOT,
     {
-      variables: {
-        id,
-        name: chatbotName,
-      },
+      variables: { id, name: chatbotName },
       refetchQueries: ['GetChatbotById'],
     }
   );
 
   const [addChatbotCharacteristic, { loading: addCharacteristicLoading }] =
     useMutation(ADD_CHARACTERISTIC, {
-      variables: {
-        chatbotId: id,
-        content: newCharacteristic,
-      },
-      refetchQueries: ['GetChatbotById'],
+      variables: { chatbotId: id, content: newCharacteristic },
+      refetchQueries: ['GetChatbotById', 'GetChatbotCharacteristicsPaginated'],
     });
 
   const [deleteChatbot] = useMutation(DELETE_CHATBOT, {
-    variables: {
-      id,
-    },
+    variables: { id },
     refetchQueries: ['GetChatbotById'],
     awaitRefetchQueries: true,
   });
@@ -70,14 +118,12 @@ const EditChatbot = ({ id }: { id: string }) => {
   }, [data]);
 
   useEffect(() => {
-    const url = `${BASE_URL}/chatbot/${id}`;
-    setUrl(url);
+    setUrl(`${BASE_URL}/chatbot/${id}`);
   }, [id]);
 
   const handleAddCharacteristic = async () => {
     try {
       const promise = addChatbotCharacteristic();
-
       toast.promise(promise, {
         loading: 'Adding characteristic...',
         success: 'Characteristic added successfully',
@@ -90,10 +136,8 @@ const EditChatbot = ({ id }: { id: string }) => {
 
   const handleUpdateChatbot = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     try {
       const promise = updateChatbot();
-
       toast.promise(promise, {
         loading: 'Updating chatbot...',
         success: 'Chatbot updated successfully',
@@ -107,7 +151,6 @@ const EditChatbot = ({ id }: { id: string }) => {
   const handleDelete = async () => {
     try {
       const promise = deleteChatbot();
-
       toast.promise(promise, {
         loading: 'Deleting chatbot...',
         success: 'Chatbot deleted successfully',
@@ -124,14 +167,12 @@ const EditChatbot = ({ id }: { id: string }) => {
       <Spinner className="relative md:top-1/2 md:left-1/2 md:mt-0 mt-10" />
     );
   }
-
   if (error) return <p>Error: {error.message}</p>;
-
   if (!data?.getChatbotById) return redirect('/view-chatbots');
 
   return (
     <div className="px-0 md:p-10">
-      <div className="md:sticky md:top-0 z-50 sm:max-w-sm ml-auto space-y-2 border-t md:border p-5 rounded-b-lg md:rounded-lg  dark:bg-black border-default-200 dark:border-default-100">
+      <div className="md:sticky md:top-0 z-50 sm:max-w-sm ml-auto space-y-2 border-t md:border p-5 rounded-b-lg md:rounded-lg dark:bg-black border-default-200 dark:border-default-100">
         <strong>Link to Chat</strong>
         <p className="text-sm italic text-default-600 dark:text-default-500">
           Share this link with your users to start conversations with your
@@ -149,12 +190,7 @@ const EditChatbot = ({ id }: { id: string }) => {
             toast.success('Copied to clipboard');
           }}
         >
-          <span
-            style={{
-              whiteSpace: 'normal',
-              overflowWrap: 'anywhere',
-            }}
-          >
+          <span style={{ whiteSpace: 'normal', overflowWrap: 'anywhere' }}>
             {url}
           </span>
         </Snippet>
@@ -167,7 +203,6 @@ const EditChatbot = ({ id }: { id: string }) => {
 
         <div className="flex space-x-4">
           <Avatar seed={chatbotName} />
-
           <form
             onSubmit={handleUpdateChatbot}
             className="flex flex-1 space-x-2 items-center"
@@ -226,16 +261,23 @@ const EditChatbot = ({ id }: { id: string }) => {
             </Button>
           </form>
 
-          <ul className="flex flex-wrap-reverse gap-5">
-            {data?.getChatbotById?.chatbot_characteristics?.map(
-              (characteristic) => (
-                <Characteristic
-                  key={characteristic.id}
-                  characteristic={characteristic}
-                />
-              )
-            )}
-          </ul>
+          {characteristicsLoading && !characteristicsData ? (
+            <Spinner />
+          ) : (
+            <ul className="flex flex-wrap-reverse gap-5">
+              {characteristicsData?.getChatbotCharacteristicsPaginated.edges.map(
+                (edge) => (
+                  <Characteristic
+                    key={edge.node.id}
+                    characteristic={edge.node}
+                  />
+                )
+              )}
+            </ul>
+          )}
+          <div ref={ref} className="h-10 flex justify-center items-center">
+            {characteristicsLoading && <Spinner />}
+          </div>
         </div>
       </section>
     </div>

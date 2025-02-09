@@ -1,12 +1,14 @@
 import { ResolverFn } from '@/graphql/types';
 import {
+  GetGuestByIdArgs,
   getGuestByIdSchema,
+  GetGuestsArgs,
   getGuestsSchema,
 } from '@/graphql/validation-schemas/guest-schemas';
 
 export const getGuestById: ResolverFn<
   null,
-  { id: string },
+  GetGuestByIdArgs,
   any | null
 > = async (_, args, { prisma }) => {
   const { id } = getGuestByIdSchema.parse(args);
@@ -16,7 +18,7 @@ export const getGuestById: ResolverFn<
   });
 };
 
-export const getGuests: ResolverFn<null, {}, any[]> = async (
+export const getGuests: ResolverFn<null, GetGuestsArgs, any[]> = async (
   _,
   args,
   { prisma }

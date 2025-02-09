@@ -63,6 +63,16 @@ export const typeDefs = gql`
     messages: [Message!]
   }
 
+  type ChatSessionEdge {
+    node: ChatSession!
+    cursor: String
+  }
+
+  type ChatSessionConnection {
+    edges: [ChatSessionEdge!]!
+    pageInfo: PageInfo!
+  }
+
   type Message {
     id: ID!
     chat_session_id: String!
@@ -72,6 +82,15 @@ export const typeDefs = gql`
     chat_session: ChatSession!
   }
 
+  type MessageEdge {
+    node: Message!
+    cursor: String
+  }
+
+  type MessageConnection {
+    edges: [MessageEdge!]!
+    pageInfo: PageInfo!
+  }
   type Query {
     getChatbots: [Chatbot!]!
 
@@ -79,6 +98,12 @@ export const typeDefs = gql`
 
     getChatbotById(id: ID!): Chatbot
     getChatbotsByUser(clerk_user_id: String!): [Chatbot!]
+
+    getChatbotsByUserPaginated(
+      clerk_user_id: String!
+      first: Int!
+      after: String
+    ): ChatbotConnection!
 
     getChatbotCharacteristics(chatbot_id: String!): [ChatbotCharacteristic!]
 
@@ -91,11 +116,23 @@ export const typeDefs = gql`
     getChatSessionById(id: ID!): ChatSession
     getChatSessions: [ChatSession!]!
 
+    getChatSessionByChatbotIdPaginated(
+      chatbot_id: String!
+      first: Int!
+      after: String
+    ): ChatSessionConnection!
+
     getGuestById(id: ID!): Guest
     getGuests: [Guest!]!
 
     getMessageById(id: ID!): Message
     getMessages: [Message!]!
+
+    getMessagesByChatSessionIdPaginated(
+      chat_session_id: String!
+      first: Int!
+      after: String
+    ): MessageConnection!
   }
 
   type Mutation {

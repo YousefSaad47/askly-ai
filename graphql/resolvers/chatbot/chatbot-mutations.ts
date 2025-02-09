@@ -4,9 +4,15 @@ import {
   updateChatbotSchema,
   deleteChatbotSchema,
   addChatbotCharacteristicSchema,
+  CreateChatbotInput,
+  UpdateChatbotInput,
+  DeleteChatbotInput,
+  AddChatbotCharacteristicInput,
+  deleteChatbotCharacteristicSchema,
+  DeleteChatbotCharacteristicInput,
 } from '@/graphql/validation-schemas/chatbot-schemas';
 
-export const createChatbot: ResolverFn<null, any, any> = async (
+export const createChatbot: ResolverFn<null, CreateChatbotInput, any> = async (
   _,
   args,
   { prisma }
@@ -15,7 +21,7 @@ export const createChatbot: ResolverFn<null, any, any> = async (
   return await prisma.chatbots.create({ data });
 };
 
-export const updateChatbot: ResolverFn<null, any, any> = async (
+export const updateChatbot: ResolverFn<null, UpdateChatbotInput, any> = async (
   _,
   args,
   { prisma }
@@ -27,7 +33,7 @@ export const updateChatbot: ResolverFn<null, any, any> = async (
   });
 };
 
-export const deleteChatbot: ResolverFn<null, { id: string }, any> = async (
+export const deleteChatbot: ResolverFn<null, DeleteChatbotInput, any> = async (
   _,
   args,
   { prisma }
@@ -38,7 +44,7 @@ export const deleteChatbot: ResolverFn<null, { id: string }, any> = async (
 
 export const addChatbotCharacteristic: ResolverFn<
   null,
-  { chatbot_id: string; content: string },
+  AddChatbotCharacteristicInput,
   any
 > = async (_, args, { prisma }) => {
   const data = addChatbotCharacteristicSchema.parse(args);
@@ -47,9 +53,9 @@ export const addChatbotCharacteristic: ResolverFn<
 
 export const deleteChatbotCharacteristic: ResolverFn<
   null,
-  { id: string },
+  DeleteChatbotCharacteristicInput,
   any
 > = async (_, args, { prisma }) => {
-  const { id } = deleteChatbotSchema.parse(args);
+  const { id } = deleteChatbotCharacteristicSchema.parse(args);
   return await prisma.chatbot_characteristics.delete({ where: { id } });
 };

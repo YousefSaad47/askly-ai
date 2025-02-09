@@ -27,6 +27,16 @@ export const createChatbotSchema = z.object({
 });
 export type CreateChatbotInput = z.infer<typeof createChatbotSchema>;
 
+export const getChatbotsByUserPaginatedSchema = z.object({
+  clerk_user_id: z.string(),
+  first: z.number().min(1),
+  after: z.string().optional(),
+});
+
+export type GetChatbotsByUserPaginatedArgs = z.infer<
+  typeof getChatbotsByUserPaginatedSchema
+>;
+
 export const updateChatbotSchema = z.object({
   id: z.string(),
   clerk_user_id: z.string().optional(),
@@ -61,4 +71,11 @@ export const addChatbotCharacteristicSchema = z.object({
 });
 export type AddChatbotCharacteristicInput = z.infer<
   typeof addChatbotCharacteristicSchema
+>;
+
+export const deleteChatbotCharacteristicSchema = z.object({
+  id: z.string(),
+});
+export type DeleteChatbotCharacteristicInput = z.infer<
+  typeof deleteChatbotCharacteristicSchema
 >;
