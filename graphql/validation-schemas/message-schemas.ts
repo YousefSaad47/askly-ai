@@ -26,3 +26,13 @@ export const deleteMessageSchema = z.object({
   id: z.string(),
 });
 export type DeleteMessageInput = z.infer<typeof deleteMessageSchema>;
+
+export const getMessagesByChatSessionIdPaginatedSchema = z.object({
+  chat_session_id: z.string(),
+  first: z.number().min(1),
+  after: z.string().optional(),
+});
+
+export type GetMessagesByChatSessionIdPaginatedArgs = z.infer<
+  typeof getMessagesByChatSessionIdPaginatedSchema
+>;

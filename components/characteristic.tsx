@@ -16,7 +16,7 @@ const Characteristic = ({
     variables: {
       characteristic_id: characteristic.id,
     },
-    refetchQueries: ['GetChatbotById'],
+    refetchQueries: ['GetChatbotById', 'GetChatbotCharacteristicsPaginated'],
   });
 
   const handleRemoveCharacteristic = async () => {

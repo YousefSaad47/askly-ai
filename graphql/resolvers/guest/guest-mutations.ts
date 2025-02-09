@@ -3,9 +3,12 @@ import {
   createGuestSchema,
   updateGuestSchema,
   deleteGuestSchema,
+  CreateGuestInput,
+  UpdateGuestInput,
+  DeleteGuestInput,
 } from '@/graphql/validation-schemas/guest-schemas';
 
-export const createGuest: ResolverFn<null, any, any> = async (
+export const createGuest: ResolverFn<null, CreateGuestInput, any> = async (
   _,
   args,
   { prisma }
@@ -14,7 +17,7 @@ export const createGuest: ResolverFn<null, any, any> = async (
   return await prisma.guests.create({ data });
 };
 
-export const updateGuest: ResolverFn<null, any, any> = async (
+export const updateGuest: ResolverFn<null, UpdateGuestInput, any> = async (
   _,
   args,
   { prisma }
@@ -26,7 +29,7 @@ export const updateGuest: ResolverFn<null, any, any> = async (
   });
 };
 
-export const deleteGuest: ResolverFn<null, { id: string }, any> = async (
+export const deleteGuest: ResolverFn<null, DeleteGuestInput, any> = async (
   _,
   args,
   { prisma }
