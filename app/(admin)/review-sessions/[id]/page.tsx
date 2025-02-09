@@ -1,4 +1,4 @@
-import ChatbotSession from '@/components/ChatbotSession';
+import ChatbotSession from '@/components/chatbot-session';
 
 export const dynamic = 'force-dynamic';
 

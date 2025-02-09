@@ -2,7 +2,7 @@ import { ResolverFn } from '@/graphql/types';
 import {
   getGuestByIdSchema,
   getGuestsSchema,
-} from '@/graphql/validation-schemas/guestSchemas';
+} from '@/graphql/validation-schemas/guest-schemas';
 
 export const getGuestById: ResolverFn<
   null,

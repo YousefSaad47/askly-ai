@@ -9,8 +9,8 @@ export const getGuestsSchema = z.object({});
 export type GetGuestsArgs = z.infer<typeof getGuestsSchema>;
 
 export const createGuestSchema = z.object({
-  name: z.string().optional(),
-  email: z.string().email().optional(),
+  name: z.string(),
+  email: z.string().email(),
 });
 export type CreateGuestInput = z.infer<typeof createGuestSchema>;
 

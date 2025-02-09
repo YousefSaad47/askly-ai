@@ -1,5 +1,7 @@
+'use client';
+
 import { HeroUIProvider } from '@heroui/system';
-import ApolloProviderWrapper from './ApolloProvider';
+import { ApolloProviderWrapper } from './apollo-provider';
 import { Toaster } from '@/components/ui/sonner';
 import { ThemeProvider as NextThemesProvider } from 'next-themes';
 import { ClerkProvider } from '@clerk/nextjs';

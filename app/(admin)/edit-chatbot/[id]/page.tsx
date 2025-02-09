@@ -1,4 +1,4 @@
-import EditChatbot from '@/components/EditChatbot';
+import EditChatbot from '@/components/edit-chatbot';
 
 const EditChatbotPage = async ({
   params,

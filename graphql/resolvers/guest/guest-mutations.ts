@@ -3,7 +3,7 @@ import {
   createGuestSchema,
   updateGuestSchema,
   deleteGuestSchema,
-} from '@/graphql/validation-schemas/guestSchemas';
+} from '@/graphql/validation-schemas/guest-schemas';
 
 export const createGuest: ResolverFn<null, any, any> = async (
   _,

@@ -3,7 +3,7 @@
 import { useUser } from '@clerk/nextjs';
 import { GetChatbotByUserResponse, GetChatbotByUserVariables } from '@/types';
 import Link from 'next/link';
-import Avatar from '@/components/Avatar';
+import Avatar from '@/components/avatar';
 import { useQuery } from '@apollo/client';
 import { Button } from '@heroui/button';
 import { GET_CHATBOTS_BY_USER } from '@/graphql/queries';

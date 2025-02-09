@@ -3,11 +3,11 @@ import {
   createChatSessionSchema,
   updateChatSessionSchema,
   deleteChatSessionSchema,
-} from '@/graphql/validation-schemas/chatSessionSchemas';
+} from '@/graphql/validation-schemas/chat-session-schemas';
 
 export const createChatSession: ResolverFn<
   null,
-  { chatbot_id: string; guest_id?: string },
+  { chatbot_id: string; guest_id: string },
   any
 > = async (_, args, { prisma }) => {
   const data = createChatSessionSchema.parse(args);

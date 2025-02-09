@@ -4,7 +4,7 @@ import {
   getChatbotsPaginatedSchema,
   getChatbotByIdSchema,
   getChatbotsByUserSchema,
-} from '@/graphql/validation-schemas/chatbotSchemas';
+} from '@/graphql/validation-schemas/chatbot-schemas';
 
 export const getChatbots: ResolverFn<null, {}, any[]> = async (
   _,

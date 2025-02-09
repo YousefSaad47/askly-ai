@@ -3,7 +3,7 @@ import {
   createMessageSchema,
   updateMessageSchema,
   deleteMessageSchema,
-} from '@/graphql/validation-schemas/messageSchemas';
+} from '@/graphql/validation-schemas/message-schemas';
 
 export const createMessage: ResolverFn<
   null,

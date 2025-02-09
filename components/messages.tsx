@@ -1,7 +1,7 @@
 import { cn } from '@/lib/utils';
 import { Message } from '@/types';
 import { usePathname } from 'next/navigation';
-import Avatar from './Avatar';
+import Avatar from './avatar';
 import { UserCircle } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
@@ -51,7 +51,7 @@ function Messages({ messages, chatbotName }: MessagesProps) {
                 <UserCircle className="text-primary" />
               )}
             </div>
-            <p
+            <div
               className={cn(
                 'chat-bubble ',
                 isSender ? 'bg-primary' : 'bg-default-500 dark:bg-default-200'
@@ -112,7 +112,7 @@ function Messages({ messages, chatbotName }: MessagesProps) {
               >
                 {message.content}
               </ReactMarkdown>
-            </p>
+            </div>
           </div>
         );
       })}

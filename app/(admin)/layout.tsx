@@ -1,18 +1,13 @@
-import Banner from '@/components/Banner';
-import Header from '@/components/Header';
-import Sidebar from '@/components/Sidebar';
-import { Suspense } from 'react';
+import Header from '@/components/header';
+import Sidebar from '@/components/sidebar';
 
-const AdminLayout = ({
+const AdminLayout = async ({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) => {
   return (
     <div className="flex flex-col min-h-screen">
-      <Suspense fallback={<div>Loading...</div>}>
-        <Banner />
-      </Suspense>
       <Header />
       <div className="flex flex-col flex-1 lg:flex-row bg-gray-100 dark:bg-black">
         <Sidebar />
