@@ -8,8 +8,7 @@ import {
   NavbarMenuItem,
   NavbarMenuToggle,
 } from '@heroui/navbar';
-import { Breadcrumbs, BreadcrumbItem } from '@heroui/breadcrumbs';
-import { Link } from '@heroui/link';
+import Link from 'next/link';
 import { useClerk } from '@clerk/nextjs';
 import { useState } from 'react';
 import { ThemeSwitcher } from './theme-switcher';
@@ -69,7 +68,7 @@ const Header = () => {
           ))}
           {user && (
             <NavbarMenuItem>
-              <Link href="/" color={'danger'} onPress={() => signOut()}>
+              <Link href="/" className="text-danger" onClick={() => signOut()}>
                 Sign Out
               </Link>
             </NavbarMenuItem>

@@ -3,7 +3,7 @@ import {
   CREATE_GUEST,
   CREATE_MESSAGE,
 } from '@/graphql/mutations';
-import apolloClient from '@/lib/apolloClient';
+import apolloClient from '@/lib/apollo-client';
 
 export const startNewChat = async (
   guestName: string,

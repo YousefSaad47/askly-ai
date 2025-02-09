@@ -154,10 +154,10 @@ export default function ChatPage({ id }: { id: string }) {
         onOpenChange={onOpenChange}
       >
         <ModalContent>
-          {(onClose) => (
+          {() => (
             <form onSubmit={handleSubmitInfo}>
               <ModalHeader className="flex flex-col gap-1">
-                Let's help you out!
+                Let&apos;s help you out!
                 <p>I need a few details to get started</p>
               </ModalHeader>
               <ModalBody>
@@ -207,7 +207,7 @@ export default function ChatPage({ id }: { id: string }) {
       <div className="flex flex-col w-full max-w-3xl mx-auto md:rounded-t-lg shadow-2xl md:mt-10">
         <div className="pb-4sticky top-0 z-50 bg-default py-5 px-10 text-white md:rounded-t-lg flex items-center space-x-4">
           <Avatar
-            seed={chatbotData?.getChatbotById?.name!}
+            seed={chatbotData?.getChatbotById?.name as string}
             className="size-12 bg-white rounded-full"
           />
           <div>
@@ -219,7 +219,7 @@ export default function ChatPage({ id }: { id: string }) {
         </div>
         <Messages
           messages={messages}
-          chatbotName={chatbotData?.getChatbotById?.name!}
+          chatbotName={chatbotData?.getChatbotById?.name as string}
         />
 
         <form

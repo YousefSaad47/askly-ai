@@ -11,11 +11,19 @@ import { Spinner } from '@heroui/spinner';
 export default function ReviewSessions() {
   const { user, isLoaded } = useUser();
 
-  if (!isLoaded) {
+  const { data, loading } = useQuery<
+    GetChatbotByUserResponse,
+    GetChatbotByUserVariables
+  >(GET_CHATBOTS_BY_USER, {
+    variables: {
+      clerk_user_id: user?.id as string,
+    },
+    skip: !isLoaded || !user?.id,
+  });
+
+  if (!isLoaded || loading) {
     return (
-      <div className="flex justify-center items-center h-screen">
-        <Spinner />
-      </div>
+      <Spinner className="relative md:top-1/2 md:left-1/2 md:mt-0 mt-10" />
     );
   }
 
@@ -30,18 +38,6 @@ export default function ReviewSessions() {
         />
       </div>
     );
-
-  const { data } = useQuery<
-    GetChatbotByUserResponse,
-    GetChatbotByUserVariables
-  >(GET_CHATBOTS_BY_USER, {
-    variables: {
-      clerk_user_id: user?.id,
-    },
-    skip: !user?.id,
-  });
-
-  console.log(data);
 
   const chatbotsByUser = data?.getChatbotsByUser || [];
 

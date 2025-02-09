@@ -15,8 +15,8 @@ export default function NotFound() {
         </h2>
 
         <p className="text-xl text-default-600 dark:text-default-500 mb-8 leading-relaxed">
-          Oops! The page you're looking for seems to have wandered off into the
-          digital void.
+          Oops! The page you&apos;re looking for seems to have wandered off into
+          the digital void.
         </p>
 
         <Button
