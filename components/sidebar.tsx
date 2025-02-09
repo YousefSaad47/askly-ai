@@ -61,14 +61,15 @@ const Sidebar = () => {
       >
         {sidebarItems.map((item, index) => (
           <Tab
+            className="h-auto"
             key={`${item.href}-${index}`}
             title={
               <Link
                 href={item.href}
-                className="flex items-center gap-1 text-black dark:text-white"
+                className="flex items-center md:gap-1 text-black dark:text-white"
               >
                 {item.icon}
-                <p className="text-xs md:text-sm">{item.title}</p>
+                <p className="text-xs text-wrap md:text-sm">{item.title}</p>
               </Link>
             }
           />

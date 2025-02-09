@@ -15,7 +15,7 @@ export default function SignUpPage() {
           {(isGlobalLoading) => (
             <>
               <SignUp.Step name="start">
-                <div className="w-[430px]">
+                <div className="w-[350px] md:w-[430px]">
                   <div className="flex flex-col gap-1 mb-4">
                     <h1 className="text-large font-medium">
                       Create your account
@@ -130,7 +130,7 @@ export default function SignUpPage() {
               </SignUp.Step>
 
               <SignUp.Step name="continue">
-                <div className="w-[430px]">
+                <div className="w-[350px] md:w-[430px]">
                   <div className="flex flex-col gap-1 mb-4">
                     <h1 className="text-large font-medium">
                       Continue registration
@@ -175,7 +175,7 @@ export default function SignUpPage() {
 
               <SignUp.Step name="verifications">
                 <SignUp.Strategy name="email_code">
-                  <div className="w-[430px]">
+                  <div className="w-[350px] md:w-[430px]">
                     <div className="flex flex-col gap-1 mb-4">
                       <h1 className="text-large font-medium">
                         Verify your email

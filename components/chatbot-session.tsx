@@ -18,7 +18,10 @@ function ChatbotSession({ id }: { id: string }) {
     fetchPolicy: 'cache-first',
   });
 
-  if (loading) return <Spinner className="relative left-1/2 top-1/2" />;
+  if (loading)
+    return (
+      <Spinner className="flex-1 md:flex-grow-0 md:relative md:left-1/2 md:top-1/2" />
+    );
   if (error) return <p>Error loading session</p>;
 
   const session = data?.getChatSessionById;
