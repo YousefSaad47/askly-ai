@@ -15,7 +15,7 @@ export default function SignInPage() {
           {(isGlobalLoading) => (
             <>
               <SignIn.Step name="start">
-                <div className="w-[430px]">
+                <div className=" w-[350px] md:w-[430px]">
                   <div className="flex flex-col gap-1 mb-4">
                     <h1 className="text-large font-medium">
                       Sign in to your account
@@ -116,7 +116,7 @@ export default function SignInPage() {
               </SignIn.Step>
 
               <SignIn.Step name="choose-strategy">
-                <div className="w-[430px]">
+                <div className="w-[350px] md:w-[430px]">
                   <h1 className="mb-4">
                     Use another method Facing issues? You can use any of these
                     methods to sign in.
@@ -171,7 +171,7 @@ export default function SignInPage() {
 
               <SignIn.Step name="verifications">
                 <SignIn.Strategy name="password">
-                  <div className="w-[430px]">
+                  <div className="w-[350px] md:w-[430px]">
                     <h1>Check your email</h1>
                     <h2>Enter the verification code sent to your email</h2>
                     <p className="text-sm text-muted-foreground mb-4">

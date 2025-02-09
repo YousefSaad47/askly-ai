@@ -35,7 +35,6 @@ export default function RootLayout({
         <Providers>
           <GradientBackground />
           {children}
-          {/* Toaster */}
         </Providers>
       </body>
     </html>

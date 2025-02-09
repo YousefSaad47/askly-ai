@@ -5,6 +5,7 @@ import { Button } from '@heroui/button';
 import { Logo } from '@/components/logo';
 import { ArrowRight } from 'lucide-react';
 import { AnimatedTypingText } from '@/components/animated-typing-text';
+import { InstallPrompt } from '@/components/install-prompt';
 
 export default function LandingPage() {
   return (
@@ -37,6 +38,7 @@ export default function LandingPage() {
             <ArrowRight className="size-5 transition-transform duration-200 ease-in-out group-hover:translate-x-1" />
           </Button>
         </div>
+        <InstallPrompt />
       </header>
     </div>
   );

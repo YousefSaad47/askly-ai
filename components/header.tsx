@@ -14,6 +14,7 @@ import { useState } from 'react';
 import { ThemeSwitcher } from './theme-switcher';
 import { Logo } from './logo';
 import { UserAvatar } from './user-avatar';
+import { cn } from '@/lib/utils';
 
 const menuItems = [
   { name: 'Home', href: '/' },
@@ -60,7 +61,10 @@ const Header = () => {
         />
         <NavbarMenu>
           {menuItems.map((item, index) => (
-            <NavbarMenuItem key={`${item.href}-${index}`}>
+            <NavbarMenuItem
+              className={cn(index === 0 && 'mt-2')}
+              key={`${item.href}-${index}`}
+            >
               <Link className="w-full" color={'foreground'} href={item.href}>
                 {item.name}
               </Link>
