@@ -16,15 +16,12 @@ const CeateChatbot = () => {
   const [name, setName] = useState('');
   const router = useRouter();
 
-  const [createChatbot, { data, loading, error }] = useMutation(
-    CREATE_CHATBOT,
-    {
-      variables: {
-        clerk_user_id: user?.id,
-        name,
-      },
-    }
-  );
+  const [createChatbot, { loading }] = useMutation(CREATE_CHATBOT, {
+    variables: {
+      clerk_user_id: user?.id,
+      name,
+    },
+  });
 
   if (!isLoaded) {
     return (

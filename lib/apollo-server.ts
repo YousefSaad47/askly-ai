@@ -7,10 +7,12 @@ import {
 import { setContext } from '@apollo/client/link/context';
 
 export const createServerClient = (authToken: string) => {
-  const uri =
-    process.env.NODE_ENV === 'development'
-      ? 'http://localhost:3000/api/graphql'
-      : `${process.env.NEXT_PUBLIC_BASE_URL}/api/graphql`;
+  // const uri =
+  //   process.env.NODE_ENV === 'development'
+  //     ? 'http://localhost:3000/api/graphql'
+  //     : `${process.env.NEXT_PUBLIC_BASE_URL}/api/graphql`;
+
+  const uri = 'http://localhost:3000/api/graphql';
 
   const httpLink = createHttpLink({ uri });
 

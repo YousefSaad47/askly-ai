@@ -4,6 +4,7 @@ import { GET_CHAT_SESSION_BY_ID } from '@/graphql/queries';
 import {
   GetChatSessionByIdResponse,
   GetChatSessionByIdVariables,
+  Message,
 } from '@/types';
 import { useQuery } from '@apollo/client';
 import Messages from './messages';
@@ -21,7 +22,9 @@ function ChatbotSession({ id }: { id: string }) {
       <h1 className="text-xl md-text-3xl font-semibold">Session Review</h1>
       <p className="font-light text-xs text-gray-400 mt-2">
         Started at{' '}
-        {new Date(data?.getChatSessionById.created_at!).toLocaleString()}
+        {new Date(
+          data?.getChatSessionById.created_at as string
+        ).toLocaleString()}
       </p>
 
       <h2 className="font-light mt-2">
@@ -35,8 +38,8 @@ function ChatbotSession({ id }: { id: string }) {
       <hr className="my-10" />
 
       <Messages
-        messages={data?.getChatSessionById.messages!}
-        chatbotName={data?.getChatSessionById.chatbot.name!}
+        messages={data?.getChatSessionById.messages as Message[]}
+        chatbotName={data?.getChatSessionById.chatbot.name as string}
       />
     </div>
   );
