@@ -31,8 +31,8 @@ export interface ChatSession {
 }
 
 export interface Message {
-  id: number;
-  chat_session_id: number;
+  id: string;
+  chat_session_id: string;
   content: string;
   created_at: string;
   sender: 'ai' | 'user';
@@ -70,5 +70,13 @@ export interface GetChatSessionByIdResponse {
 }
 
 export interface GetChatSessionByIdVariables {
+  id: string;
+}
+
+export interface GetMessagesByChatSessionIdResponse {
+  getChatSessionById: ChatSession;
+}
+
+export interface GetMessagesByChatSessionIdVariables {
   id: string;
 }

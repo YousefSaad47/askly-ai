@@ -6,7 +6,7 @@ import {
   GetChatSessionByIdVariables,
 } from '@/types';
 import { useQuery } from '@apollo/client';
-import Messages from './Messages';
+import Messages from './messages';
 
 function ChatbotSession({ id }: { id: string }) {
   const { data } = useQuery<

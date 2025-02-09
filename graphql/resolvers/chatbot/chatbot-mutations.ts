@@ -4,7 +4,7 @@ import {
   updateChatbotSchema,
   deleteChatbotSchema,
   addChatbotCharacteristicSchema,
-} from '@/graphql/validation-schemas/chatbotSchemas';
+} from '@/graphql/validation-schemas/chatbot-schemas';
 
 export const createChatbot: ResolverFn<null, any, any> = async (
   _,

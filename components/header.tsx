@@ -12,9 +12,9 @@ import { Breadcrumbs, BreadcrumbItem } from '@heroui/breadcrumbs';
 import { Link } from '@heroui/link';
 import { useClerk } from '@clerk/nextjs';
 import { useState } from 'react';
-import { ThemeSwitcher } from './ThemeSwitcher';
-import { Logo } from './Logo';
-import { UserAvatar } from './UserAvatar';
+import { ThemeSwitcher } from './theme-switcher';
+import { Logo } from './logo';
+import { UserAvatar } from './user-avatar';
 
 const menuItems = [
   { name: 'Home', href: '/' },

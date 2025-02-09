@@ -2,7 +2,7 @@ import { ResolverFn } from '@/graphql/types';
 import {
   getMessageByIdSchema,
   getMessagesSchema,
-} from '@/graphql/validation-schemas/messageSchemas';
+} from '@/graphql/validation-schemas/message-schemas';
 
 export const getMessageById: ResolverFn<
   null,

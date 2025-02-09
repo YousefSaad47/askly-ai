@@ -110,7 +110,7 @@ export const typeDefs = gql`
 
     deleteChatbotCharacteristic(id: ID!): ChatbotCharacteristic
 
-    createChatSession(chatbot_id: String!, guest_id: String): ChatSession!
+    createChatSession(chatbot_id: String!, guest_id: String!): ChatSession!
     updateChatSession(
       id: ID!
       chatbot_id: String
@@ -118,7 +118,7 @@ export const typeDefs = gql`
     ): ChatSession
     deleteChatSession(id: ID!): ChatSession
 
-    createGuest(name: String, email: String): Guest!
+    createGuest(name: String!, email: String!): Guest!
     updateGuest(id: ID!, name: String, email: String): Guest
     deleteGuest(id: ID!): Guest
 

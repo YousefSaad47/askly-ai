@@ -5,13 +5,13 @@ import { useEffect, useState } from 'react';
 import { Snippet } from '@heroui/snippet';
 import { toast } from 'sonner';
 import { Button } from '@heroui/button';
-import Avatar from '@/components/Avatar';
+import Avatar from '@/components/avatar';
 import { useMutation, useQuery } from '@apollo/client';
 import { GET_CHATBOT_BY_ID } from '@/graphql/queries';
 import { GetChatbotByIdResponse, GetChatbotByIdVariables } from '@/types';
 import { Input } from '@heroui/input';
 import { Divider } from '@heroui/divider';
-import Characteristic from '@/components/Characteristic';
+import Characteristic from '@/components/characteristic';
 import {
   ADD_CHARACTERISTIC,
   DELETE_CHATBOT,
@@ -19,7 +19,7 @@ import {
 } from '@/graphql/mutations';
 import { redirect } from 'next/navigation';
 import { Spinner } from '@heroui/spinner';
-import { ModalComponent } from './Modal';
+import { ModalComponent } from './modal';
 
 const EditChatbot = ({ id }: { id: string }) => {
   const [url, setUrl] = useState('');
@@ -139,6 +139,7 @@ const EditChatbot = ({ id }: { id: string }) => {
         </p>
         <Snippet
           variant="flat"
+          symbol={false}
           color="primary"
           tooltipProps={{
             placement: 'top-start',

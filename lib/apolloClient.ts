@@ -5,8 +5,13 @@ import {
   createHttpLink,
 } from '@apollo/client';
 
+const uri =
+  process.env.NODE_ENV === 'development'
+    ? 'http://localhost:3000/api/graphql'
+    : `${process.env.NEXT_PUBLIC_BASE_URL}/api/graphql`;
+
 const httpLink = createHttpLink({
-  uri: '/api/graphql',
+  uri,
 });
 
 const defaultOptions: DefaultOptions = {
@@ -24,10 +29,10 @@ const defaultOptions: DefaultOptions = {
   },
 };
 
-const client = new ApolloClient({
+const apolloClient = new ApolloClient({
   link: httpLink,
   cache: new InMemoryCache(),
   defaultOptions,
 });
 
-export default client;
+export default apolloClient;

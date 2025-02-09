@@ -10,7 +10,7 @@ export type GetChatSessionsArgs = z.infer<typeof getChatSessionsSchema>;
 
 export const createChatSessionSchema = z.object({
   chatbot_id: z.string(),
-  guest_id: z.string().optional(),
+  guest_id: z.string(),
 });
 export type CreateChatSessionInput = z.infer<typeof createChatSessionSchema>;
 

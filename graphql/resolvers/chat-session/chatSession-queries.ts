@@ -2,7 +2,7 @@ import { ResolverFn } from '@/graphql/types';
 import {
   getChatSessionByIdSchema,
   getChatSessionsSchema,
-} from '@/graphql/validation-schemas/chatSessionSchemas';
+} from '@/graphql/validation-schemas/chat-session-schemas';
 
 export const getChatSessionById: ResolverFn<
   null,

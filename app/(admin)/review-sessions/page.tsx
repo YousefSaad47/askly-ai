@@ -1,6 +1,6 @@
 'use client';
 
-import ChatbotSessions from '@/components/ChatbotSessions';
+import ChatbotSessions from '@/components/chatbot-sessions';
 import { GET_CHATBOTS_BY_USER } from '@/graphql/queries';
 import { GetChatbotByUserResponse, GetChatbotByUserVariables } from '@/types';
 import { useQuery } from '@apollo/client';

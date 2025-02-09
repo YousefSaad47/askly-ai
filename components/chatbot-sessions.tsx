@@ -3,7 +3,7 @@
 import { Chatbot } from '@/types';
 import { useEffect, useState } from 'react';
 import { Accordion, AccordionItem } from '@heroui/accordion';
-import Avatar from './Avatar';
+import Avatar from './avatar';
 import Link from 'next/link';
 import ReactTimeAgo from 'react-timeago';
 import { Button } from '@heroui/button';

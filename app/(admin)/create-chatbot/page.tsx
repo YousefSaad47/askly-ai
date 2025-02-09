@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import Avatar from '@/components/Avatar';
+import Avatar from '@/components/avatar';
 import { CREATE_CHATBOT } from '@/graphql/mutations';
 import { useMutation } from '@apollo/client';
 import { useUser } from '@clerk/nextjs';

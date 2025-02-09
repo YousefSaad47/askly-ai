@@ -3,7 +3,7 @@ import { ApolloServer } from '@apollo/server';
 import depthLimit from 'graphql-depth-limit';
 
 import { NextRequest } from 'next/server';
-import { typeDefs } from '@/graphql/graphqlSchema';
+import { typeDefs } from '@/graphql/graphql-schema';
 import { resolvers } from '@/graphql/resolvers';
 import { prisma } from '@/lib/prisma';
 import { Context } from '@/graphql/types';

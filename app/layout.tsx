@@ -3,7 +3,7 @@ import localFont from 'next/font/local';
 import './globals.css';
 
 import Providers from '@/components/providers';
-import { GradientBackground } from '@/components/BackGroundGradient';
+import { GradientBackground } from '@/components/back-ground-gradient';
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
