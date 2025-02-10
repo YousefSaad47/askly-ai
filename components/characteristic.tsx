@@ -3,7 +3,6 @@
 import { REMOVE_CHARACTERISTIC } from '@/graphql/mutations';
 import { ChatbotCharacteristic } from '@/types';
 import { useMutation } from '@apollo/client';
-import { Button } from '@heroui/button';
 import { Trash2 } from 'lucide-react';
 import { toast } from 'sonner';
 
@@ -38,15 +37,11 @@ const Characteristic = ({
       <p className="font-normal text-medium text-default-500">
         {characteristic.content}
       </p>
-      <Button
-        isIconOnly
-        color="danger"
-        variant="light"
-        size="sm"
-        className="absolute top-0 right-0"
-      >
-        <Trash2 onClick={handleRemoveCharacteristic} />
-      </Button>
+
+      <Trash2
+        className="absolute top-1 right-1 text-danger cursor-pointer"
+        onClick={handleRemoveCharacteristic}
+      />
     </div>
   );
 };

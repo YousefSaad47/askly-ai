@@ -51,8 +51,6 @@ const EditChatbot = ({ id }: { id: string }) => {
     }
   );
 
-  console.log(characteristicsData);
-
   const { ref, inView } = useInView({ threshold: 1.0 });
 
   useEffect(() => {

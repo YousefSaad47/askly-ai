@@ -55,7 +55,7 @@ export function InstallPrompt() {
           <div className="bg-gray-300 dark:bg-gray-800 text-white rounded-lg shadow-lg p-6 w-72">
             <div className="flex justify-between items-center">
               <h3 className="text-lg font-bold text-black dark:text-white">
-                Install Our App
+                Install Askly AI
               </h3>
               <button
                 onClick={() => setShowPopup(false)}
@@ -65,7 +65,7 @@ export function InstallPrompt() {
               </button>
             </div>
             <p className="mt-2 text-sm text-default-600 dark:text-default-500">
-              Enjoy a better experience by installing our app.
+              Enjoy a better experience by installing Askly AI.
             </p>
             <Button
               onPress={async () => {

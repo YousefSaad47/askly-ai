@@ -29,8 +29,6 @@ export async function POST(req: NextRequest) {
 
   const serverClient = createServerClient(token!);
 
-  console.log(`Recievied message from ${name} with chatbot id ${chatbot_id}`);
-
   try {
     const { data: chatbotData } = await serverClient.query<
       GetChatbotByIdResponse,

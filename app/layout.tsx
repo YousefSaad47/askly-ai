@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import type { Viewport } from 'next';
 import localFont from 'next/font/local';
 import './globals.css';
 
@@ -20,6 +21,14 @@ export const metadata: Metadata = {
   title: 'Askly AI',
   description:
     'An AI assistant that provides accurate and relevant answers to user questions.',
+};
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  // interactiveWidget: 'resizes-visual',
 };
 
 export default function RootLayout({

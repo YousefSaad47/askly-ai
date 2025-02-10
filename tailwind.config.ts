@@ -10,7 +10,7 @@ export default {
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
-    './node_modules/@heroui/theme/dist/components/(button|input|spinner|alert|snippet|navbar|link|modal|user|tabs|skeleton|card|breadcrumbs|checkbox|divider|dropdown|form|accordion).js',
+    './node_modules/@heroui/theme/dist/components/(button|input|spinner|alert|snippet|navbar|modal|user|skeleton|card|checkbox|divider|dropdown|accordion).js',
   ],
   theme: {
     extend: {

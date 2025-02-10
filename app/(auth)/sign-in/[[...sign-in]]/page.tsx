@@ -6,6 +6,7 @@ import { Button } from '@heroui/button';
 import { Input } from '@heroui/input';
 import { Icons } from '@/components/ui/icons';
 import { Divider } from '@heroui/divider';
+import { oAuthButtonsClassNames } from '@/constants';
 
 export default function SignInPage() {
   return (
@@ -28,9 +29,8 @@ export default function SignInPage() {
                   <div className="grid gap-y-4">
                     <div className="grid grid-cols-2 gap-x-4">
                       <Clerk.Connection name="google" asChild>
-                        <Button
-                          variant="bordered"
-                          type="button"
+                        <button
+                          className={oAuthButtonsClassNames}
                           disabled={isGlobalLoading}
                         >
                           <Clerk.Loading scope="provider:google">
@@ -45,12 +45,11 @@ export default function SignInPage() {
                               )
                             }
                           </Clerk.Loading>
-                        </Button>
+                        </button>
                       </Clerk.Connection>
                       <Clerk.Connection name="github" asChild>
-                        <Button
-                          variant="bordered"
-                          type="button"
+                        <button
+                          className={oAuthButtonsClassNames}
                           disabled={isGlobalLoading}
                         >
                           <Clerk.Loading scope="provider:github">
@@ -65,7 +64,7 @@ export default function SignInPage() {
                               )
                             }
                           </Clerk.Loading>
-                        </Button>
+                        </button>
                       </Clerk.Connection>
                     </div>
                     <div className="flex items-center gap-4 py-2">
@@ -148,9 +147,8 @@ export default function SignInPage() {
                   <div>
                     <div className="grid w-full gap-y-4">
                       <SignIn.Action navigate="previous" asChild>
-                        <Button
-                          color="primary"
-                          radius="full"
+                        <button
+                          className="bg-primary rounded-full px-4 py-2"
                           disabled={isGlobalLoading}
                         >
                           <Clerk.Loading>
@@ -162,7 +160,7 @@ export default function SignInPage() {
                               );
                             }}
                           </Clerk.Loading>
-                        </Button>
+                        </button>
                       </SignIn.Action>
                     </div>
                   </div>

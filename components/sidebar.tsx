@@ -1,48 +1,40 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { BotMessageSquare, PencilLine, SearchIcon } from 'lucide-react';
-import { Tabs, Tab } from '@heroui/tabs';
 import Link from 'next/link';
-import { useTheme } from 'next-themes';
+import { usePathname } from 'next/navigation';
+import { cn } from '@/lib/utils';
 
 const sidebarItems = [
   {
     href: '/create-chatbot',
-    icon: <BotMessageSquare className="size-5 md:size-7" />,
+    icon: <BotMessageSquare className="size-5 lg:size-7" />,
     title: 'Create new chatbot',
   },
   {
     href: '/view-chatbots',
-    icon: <PencilLine className="size-5 float-start md:size-7" />,
+    icon: <PencilLine className="size-5 lg:size-7" />,
     title: 'Edit chatbot',
   },
   {
     href: '/review-sessions',
-    icon: <SearchIcon className="size-5 md:size-7" />,
+    icon: <SearchIcon className="size-5 lg:size-7" />,
     title: 'View sessions',
   },
 ];
 
 const Sidebar = () => {
-  const [isVertical, setIsVertical] = useState(false);
   const [mounted, setMounted] = useState(false);
-  const { theme } = useTheme();
+  const pathname = usePathname();
 
   useEffect(() => {
-    setIsVertical(window.innerWidth >= 768);
     setMounted(true);
-    const handleResize = () => {
-      setIsVertical(window.innerWidth >= 768);
-    };
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   if (!mounted)
     return (
-      <div className="flex flex-row md:flex-col gap-2 p-6">
+      <div className="flex flex-row gap-2 p-6">
         <div className="w-48 h-10 rounded-xl bg-transparent border border-default" />
         <div className="w-48 h-10 rounded-xl bg-transparent border border-default" />
         <div className="w-48 h-10 rounded-xl bg-transparent border border-default" />
@@ -50,31 +42,35 @@ const Sidebar = () => {
     );
 
   return (
-    <aside className="bg-white dark:bg-black text-white p-5 relative border-r border-r-default-200 dark:border-r-default-100">
-      <Tabs
-        aria-label="Sidebar"
-        variant="bordered"
-        size="lg"
-        color={theme === 'dark' ? 'secondary' : 'default'}
-        fullWidth
-        isVertical={isVertical}
-      >
+    <aside className="bg-white dark:bg-black p-5 border-r border-r-default-200 dark:border-r-default-100">
+      <nav className="flex flex-row lg:flex-col items-center lg:items-start space-x-2 lg:space-x-0 space-y-0 lg:space-y-2">
         {sidebarItems.map((item, index) => (
-          <Tab
-            className="h-auto"
+          <Link
             key={`${item.href}-${index}`}
-            title={
-              <Link
-                href={item.href}
-                className="flex items-center md:gap-1 text-black dark:text-white"
-              >
-                {item.icon}
-                <p className="text-xs text-wrap md:text-sm">{item.title}</p>
-              </Link>
-            }
-          />
+            href={item.href}
+            className={cn(
+              'flex items-center text-center justify-start gap-3',
+              'p-2 w-48 h-10 rounded-xl border border-default',
+              'transition-colors duration-200 group',
+              pathname === item.href
+                ? 'bg-secondary text-white'
+                : 'text-gray-600 dark:text-neutral-300 hover:bg-gray-100 dark:hover:bg-neutral-800'
+            )}
+          >
+            <span
+              className={cn(
+                'text-current',
+                pathname === item.href
+                  ? 'text-white'
+                  : 'group-hover:text-secondary dark:group-hover:text-secondary'
+              )}
+            >
+              {item.icon}
+            </span>
+            <span className="text-xs lg:text-sm">{item.title}</span>
+          </Link>
         ))}
-      </Tabs>
+      </nav>
     </aside>
   );
 };
