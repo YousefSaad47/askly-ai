@@ -6,8 +6,11 @@ import { Logo } from '@/components/logo';
 import { ArrowRight } from 'lucide-react';
 import { AnimatedTypingText } from '@/components/animated-typing-text';
 import { InstallPrompt } from '@/components/install-prompt';
+import { useUser } from '@clerk/nextjs';
 
 export default function LandingPage() {
+  const { isSignedIn } = useUser();
+
   return (
     <div className="min-h-screen">
       <header className="pt-24 pb-16 md:pt-32 md:pb-20">
@@ -28,7 +31,7 @@ export default function LandingPage() {
 
           <Button
             as={Link}
-            href="/sign-in"
+            href={isSignedIn ? '/create-chatbot' : '/sign-in'}
             color="primary"
             variant="shadow"
             size="lg"

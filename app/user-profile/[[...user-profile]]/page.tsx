@@ -9,7 +9,7 @@ const ProfileSkeleton = () => {
   return (
     <ClerkLoading>
       <Card
-        className="w-[468px] h-[704px] md:w-[880px] space-y-5 p-4"
+        className="w-[350px] h-[704px] md:w-[880px] space-y-5 p-4"
         radius="lg"
       >
         <Skeleton className="rounded-lg">
